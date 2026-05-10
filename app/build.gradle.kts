@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
 
@@ -23,6 +24,14 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    // Lombok for reducing boilerplate code
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+
+    // SLF4J logging facade and Logback implementation
+    implementation("org.slf4j:slf4j-api:2.0.11")
+    implementation("ch.qos.logback:logback-classic:1.5.3")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
