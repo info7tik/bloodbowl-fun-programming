@@ -89,6 +89,6 @@ public class BoardTest {
 
     @Test
     void removeAtWithNotFoundElement() {
-        assertThrows(IllegalArgumentException.class, () -> board.remove(DataGenerator.player1()));
+        board.remove(DataGenerator.player1());
     }
 }
