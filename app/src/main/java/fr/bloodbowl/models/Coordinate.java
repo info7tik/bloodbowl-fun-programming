@@ -2,9 +2,12 @@ package fr.bloodbowl.models;
 
 import java.util.Objects;
 
-public class Coordinate {
+import lombok.Getter;
 
+public class Coordinate {
+    @Getter
     private final int row;
+    @Getter
     private final int column;
 
     public Coordinate(int row, int column) {

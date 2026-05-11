@@ -17,6 +17,18 @@ public class BoardTest {
         assertThrows(IllegalArgumentException.class, () -> board.get(new Coordinate(3, 4)));
     }
 
+    @Test()
+    void getPositionFromEmptySquaresMustThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> board.get("not_existing"));
+    }
+
+    @Test()
+    void getPositionOfExistingPlayer() {
+        Coordinate playerPosition = new Coordinate(3, 4);
+        Board boardWithPlayer = DataGenerator.boardWithPlayer1(playerPosition);
+        assertEquals(playerPosition, boardWithPlayer.get(DataGenerator.player1().getIdentifier()));
+    }
+
     @Test
     void placeElementsInEmptySquare() {
         Coordinate coord = new Coordinate(3, 4);

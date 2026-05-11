@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Board {
     private Map<Coordinate, List<Player>> occupiedSquares = new HashMap<>();
-    private Map<String, Player> placedElements = new HashMap<>();
+    private Map<String, Coordinate> placedElements = new HashMap<>();
 
     public void placeAt(Coordinate coord, Player player) {
         if (placedElements.containsKey(player.getIdentifier())) {
@@ -17,7 +17,7 @@ public class Board {
             occupiedSquares.put(coord, new ArrayList<>());
         }
         occupiedSquares.get(coord).add(player);
-        placedElements.put(player.getIdentifier(), player);
+        placedElements.put(player.getIdentifier(), coord);
     }
 
     public void remove(Player player) {
@@ -34,6 +34,12 @@ public class Board {
         if (occupiedSquares.containsKey(coord))
             return occupiedSquares.get(coord).get(0);
         throw new IllegalArgumentException("no element at " + coord);
+    }
+
+    public Coordinate get(String playerId) {
+        if (placedElements.containsKey(playerId))
+            return placedElements.get(playerId);
+        throw new IllegalArgumentException("no element with id " + playerId);
     }
 
     public boolean has(Player player) {
