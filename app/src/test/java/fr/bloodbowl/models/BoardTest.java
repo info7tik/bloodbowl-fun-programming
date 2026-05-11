@@ -13,12 +13,12 @@ public class BoardTest {
     private Board board = new Board();
 
     @Test()
-    void getAtEmptySquare() {
+    void getElementFromEmptySquaresMustThrowException() {
         assertThrows(IllegalArgumentException.class, () -> board.get(new Coordinate(3, 4)));
     }
 
     @Test
-    void placeAt() {
+    void placeElementsInEmptySquare() {
         Coordinate coord = new Coordinate(3, 4);
         Player player = DataGenerator.player1();
         board.placeAt(coord, player);
@@ -26,7 +26,7 @@ public class BoardTest {
     }
 
     @Test
-    void placeAtDifferentCoordinateObjects() {
+    void ensurePlaceAtCanManageEqualCoordinates() {
         int row = 3;
         int column = 4;
         Player player = DataGenerator.player1();
@@ -35,7 +35,7 @@ public class BoardTest {
     }
 
     @Test
-    void placeAtSameElementAtSameCoordinate() {
+    void placeElementsInOccupiedSquareMustThrowException() {
         Coordinate coord = new Coordinate(3, 4);
         Player player = DataGenerator.player1();
         board.placeAt(coord, player);
@@ -43,7 +43,7 @@ public class BoardTest {
     }
 
     @Test
-    void placeAtSameElementAtDifferentCoordinate() {
+    void placeTheSameElementTwiceMustThrowException() {
         Coordinate coord1 = new Coordinate(3, 4);
         Coordinate coord2 = new Coordinate(3, 6);
         Player player = DataGenerator.player1();
@@ -52,7 +52,7 @@ public class BoardTest {
     }
 
     @Test()
-    void isEmpty() {
+    void detectEmptySquares() {
         Coordinate coord = new Coordinate(3, 4);
         assertTrue(board.isEmpty(coord));
         board.placeAt(coord, DataGenerator.player1());
@@ -60,7 +60,7 @@ public class BoardTest {
     }
 
     @Test()
-    void has() {
+    void detectTheElementIsInTheSquare() {
         Coordinate coord = new Coordinate(3, 4);
         Player player = DataGenerator.player1();
         assertFalse(board.has(player));
@@ -70,7 +70,7 @@ public class BoardTest {
     }
 
     @Test()
-    void isOccupied() {
+    void detectOccupiedSquares() {
         Coordinate coord = new Coordinate(3, 4);
         assertFalse(board.isOccupied(coord));
         board.placeAt(coord, DataGenerator.player1());
@@ -78,7 +78,7 @@ public class BoardTest {
     }
 
     @Test
-    void removeAt() {
+    void removeElementsFromTheBoard() {
         Coordinate coord = new Coordinate(3, 4);
         Player player = DataGenerator.player1();
         board.placeAt(coord, player);
@@ -88,7 +88,7 @@ public class BoardTest {
     }
 
     @Test
-    void removeAtWithNotFoundElement() {
+    void removeNotExistingElementsFromTheBoardDoNothing() {
         board.remove(DataGenerator.player1());
     }
 }
