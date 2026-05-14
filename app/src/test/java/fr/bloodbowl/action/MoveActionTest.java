@@ -17,26 +17,26 @@ public class MoveActionTest {
     private final TurnHistory activePlayerHistory = DataBuilder.historyWithActivePlayer1();
 
     @Test
-    void checkPreconditionWhenMovingPlayersToAdjacentVerticalSquare() throws FailedPreconditionException {
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow(), player1Position.getColumn() + 1);
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow(), player1Position.getColumn() - 1);
+    void checkPreconditionWhenMovingPlayersToAdjacentVerticalSquareMustSucceed() throws FailedPreconditionException {
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow(), player1Position.getColumn() + 1);
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow(), player1Position.getColumn() - 1);
     }
 
     @Test
-    void checkPreconditionWhenMovingPlayersToAdjacentHorizontalSquare() throws FailedPreconditionException {
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow() + 1, player1Position.getColumn());
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow() - 1, player1Position.getColumn());
+    void checkPreconditionWhenMovingPlayersToAdjacentHorizontalSquareMustSucceed() throws FailedPreconditionException {
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow() + 1, player1Position.getColumn());
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow() - 1, player1Position.getColumn());
     }
 
     @Test
-    void checkPreconditionWhenMovingPlayersToAdjacentDiagonalSquare() throws FailedPreconditionException {
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow() + 1, player1Position.getColumn() + 1);
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow() + 1, player1Position.getColumn() - 1);
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow() - 1, player1Position.getColumn() + 1);
-        checkPreconditionWhenMovingToWithSuccess(player1Position.getRow() - 1, player1Position.getColumn() - 1);
+    void checkPreconditionWhenMovingPlayersToAdjacentDiagonalSquareMustSucceed() throws FailedPreconditionException {
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow() + 1, player1Position.getColumn() + 1);
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow() + 1, player1Position.getColumn() - 1);
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow() - 1, player1Position.getColumn() + 1);
+        checkPreconditionWhenMovingToMustSucceed(player1Position.getRow() - 1, player1Position.getColumn() - 1);
     }
 
-    private void checkPreconditionWhenMovingToWithSuccess(int destRow, int destColumn)
+    private void checkPreconditionWhenMovingToMustSucceed(int destRow, int destColumn)
             throws FailedPreconditionException {
         Coordinate destination = new Coordinate(destRow, destColumn);
         MoveAction action = new MoveAction(DataBuilder.player1(), destination);
@@ -44,25 +44,25 @@ public class MoveActionTest {
     }
 
     @Test
-    void checkPreconditionWhenMovingPlayersToDistantSquareMustThrowException() {
-        checkPreconditionWithErrorWhenMovingTo(player1Position.getRow(), player1Position.getColumn() + 2);
-        checkPreconditionWithErrorWhenMovingTo(player1Position.getRow(), player1Position.getColumn() - 2);
-        checkPreconditionWithErrorWhenMovingTo(player1Position.getRow() + 1, player1Position.getColumn() - 2);
+    void checkPreconditionWhenMovingPlayersToDistantSquareMustFail() {
+        checkPreconditionMustFailWhenMovingTo(player1Position.getRow(), player1Position.getColumn() + 2);
+        checkPreconditionMustFailWhenMovingTo(player1Position.getRow(), player1Position.getColumn() - 2);
+        checkPreconditionMustFailWhenMovingTo(player1Position.getRow() + 1, player1Position.getColumn() - 2);
     }
 
     @Test
-    void checkPreconditionWhenMovingPlayersToTheSameSquareMustThrowException() {
-        checkPreconditionWithErrorWhenMovingTo(player1Position.getRow(), player1Position.getColumn());
+    void checkPreconditionWhenMovingPlayersToTheSameSquareMustFail() {
+        checkPreconditionMustFailWhenMovingTo(player1Position.getRow(), player1Position.getColumn());
     }
 
     @Test
-    void checkPreconditionWhenMovingPlayersThatDoesNotExistMustThrowException() {
+    void checkPreconditionWhenMovingPlayersThatDoesNotExistMustFail() {
         Coordinate distantPosition = new Coordinate(3, 4);
         MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(DataBuilder.emptyBoard()));
     }
 
-    private void checkPreconditionWithErrorWhenMovingTo(int destRow, int destColumn) {
+    private void checkPreconditionMustFailWhenMovingTo(int destRow, int destColumn) {
         Coordinate distantPosition = new Coordinate(destRow, destColumn);
         MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(board));
