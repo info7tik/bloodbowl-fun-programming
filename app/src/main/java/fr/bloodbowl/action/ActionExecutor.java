@@ -8,8 +8,9 @@ import lombok.Getter;
 
 public class ActionExecutor {
     private Logger logger = LoggerFactory.getLogger(ActionExecutor.class);
+
     @Getter
-    private Board board = new Board();
+    private final Board board = new Board();
 
     public void execute(Action action) {
         try {

@@ -4,15 +4,16 @@ import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class MoveAction implements Action {
+    @Getter
     private final Player player;
+    @Getter
     private final Position destination;
-
-    public MoveAction(Player player, Position destination) {
-        this.player = player;
-        this.destination = destination;
-    }
 
     @Override
     public void checkPrecondition(Board board) throws FailedPreconditionException {

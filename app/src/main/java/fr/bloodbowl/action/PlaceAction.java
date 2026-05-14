@@ -4,15 +4,16 @@ import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class PlaceAction implements Action {
     @Getter
-    private Player player;
+    private final Player player;
     @Getter
-    private Position position;
+    private final Position position;
 
     public void checkPrecondition(Board board) throws FailedPreconditionException {
         if (board.has(player.getIdentifier())) {
