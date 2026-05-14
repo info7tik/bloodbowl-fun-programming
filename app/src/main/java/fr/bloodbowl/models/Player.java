@@ -6,7 +6,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Player {
     @Getter
-    private String identifier;
+    private final String identifier;
+    @Getter
+    private final int movement;
 
     @Override
     public String toString() {

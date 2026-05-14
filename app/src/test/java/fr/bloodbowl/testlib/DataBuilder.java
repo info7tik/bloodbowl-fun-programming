@@ -7,11 +7,13 @@ import fr.bloodbowl.models.TurnHistory;
 
 public class DataBuilder {
     public static Player player1() {
-        return new Player("player1");
+        int movement = 1;
+        return new Player("player1", movement);
     }
 
     public static Player player2() {
-        return new Player("player2");
+        int movement = 2;
+        return new Player("player2", movement);
     }
 
     public static Board emptyBoard() {
@@ -26,5 +28,11 @@ public class DataBuilder {
 
     public static TurnHistory emptyHistory() {
         return new TurnHistory();
+    }
+
+    public static TurnHistory historyWithActivePlayer1() {
+        TurnHistory history = emptyHistory();
+        history.addActivePlayer(player1().getIdentifier());
+        return history;
     }
 }

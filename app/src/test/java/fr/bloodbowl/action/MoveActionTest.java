@@ -13,6 +13,7 @@ public class MoveActionTest {
     private final Coordinate player1Position = new Coordinate(3, 4);
     private final Board board = DataBuilder.boardWithPlayer1(player1Position);
     private final TurnHistory history = DataBuilder.emptyHistory();
+    private final TurnHistory activePlayerHistory = DataBuilder.historyWithActivePlayer1();
 
     @Test
     void checkPreconditionWhenMovingPlayersToAdjacentVerticalSquare() throws FailedPreconditionException {
