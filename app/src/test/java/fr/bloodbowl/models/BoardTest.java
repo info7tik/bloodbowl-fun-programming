@@ -75,10 +75,10 @@ public class BoardTest {
     void detectTheElementIsInTheSquare() {
         Coordinate coord = new Coordinate(3, 4);
         Player player = DataBuilder.player1();
-        assertFalse(board.has(player));
+        assertFalse(board.has(player.getIdentifier()));
         board.placeAt(coord, player);
-        assertTrue(board.has(player));
-        assertFalse(board.has(DataBuilder.player2()));
+        assertTrue(board.has(player.getIdentifier()));
+        assertFalse(board.has(DataBuilder.player2().getIdentifier()));
     }
 
     @Test()

@@ -16,7 +16,7 @@ public class MoveAction implements Action {
 
     @Override
     public void checkPrecondition(Board board) throws FailedPreconditionException {
-        if (!board.has(player)) {
+        if (!board.has(player.getIdentifier())) {
             throw new FailedPreconditionException("can not move non existing player " + player);
         }
         Coordinate playerPosition = board.get(player.getIdentifier());
@@ -34,6 +34,12 @@ public class MoveAction implements Action {
 
     @Override
     public void checkState(TurnHistory history) throws FailedPreconditionException {
+        if (!history.isActive(player.getIdentifier())) {
+            throw new FailedPreconditionException("can not move player " + player + ": inactive player");
+        }
+        if (history.getMovement(player.getIdentifier()) >= player.getMovement()) {
+            throw new FailedPreconditionException("can not move player " + player + ": no remaining movement");
+        }
     }
 
     @Override

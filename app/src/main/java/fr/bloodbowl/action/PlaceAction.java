@@ -15,7 +15,7 @@ public class PlaceAction implements Action {
     private Coordinate coordinate;
 
     public void checkPrecondition(Board board) throws FailedPreconditionException {
-        if (board.has(player)) {
+        if (board.has(player.getIdentifier())) {
             throw new FailedPreconditionException("can not place " + player + ": element is already on the board");
         }
         if (board.isOccupied(coordinate)) {

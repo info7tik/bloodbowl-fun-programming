@@ -42,8 +42,8 @@ public class Board {
         throw new IllegalArgumentException("no element with id " + playerId);
     }
 
-    public boolean has(Player player) {
-        return placedElements.containsKey(player.getIdentifier());
+    public boolean has(String playerId) {
+        return placedElements.containsKey(playerId);
     }
 
     public boolean isOccupied(Coordinate coord) {

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Coordinate;
+import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.TurnHistory;
 import fr.bloodbowl.testlib.DataBuilder;
 
@@ -68,7 +69,7 @@ public class MoveActionTest {
     }
 
     @Test
-    void checkStateForPlayersNotInHistoryThrowsException() {
+    void checkStateForPlayersNotInHistoryMustFail() {
         MoveAction action = new MoveAction(DataBuilder.player1(), new Coordinate(3, 5));
         assertThrows(FailedPreconditionException.class, () -> action.checkState(emptyHistory));
     }
@@ -81,7 +82,9 @@ public class MoveActionTest {
 
     @Test
     void checkStateForPlayersWithExhaustedMovementMustFail() {
-        MoveAction action = new MoveAction(DataBuilder.player1(), new Coordinate(3, 5));
+        Player player1 = DataBuilder.player1();
+        MoveAction action = new MoveAction(player1, new Coordinate(3, 5));
+        activePlayerHistory.registerMovement(player1.getIdentifier(), player1.getMovement());
         assertThrows(FailedPreconditionException.class, () -> action.checkState(emptyHistory));
     }
 }
