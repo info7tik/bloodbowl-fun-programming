@@ -11,7 +11,8 @@ public class TurnHistory {
     }
 
     public void addActivePlayer(String identifier) {
-        activePlayers.put(identifier, 0);
+        if (!activePlayers.containsKey(identifier))
+            activePlayers.put(identifier, 0);
     }
 
     public void registerMovement(String identifier) {
@@ -36,5 +37,4 @@ public class TurnHistory {
             throw new IllegalArgumentException("player " + identifier + " is not an active players");
         }
     }
-
 }

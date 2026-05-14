@@ -3,6 +3,7 @@ package fr.bloodbowl.action;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.Player;
+import fr.bloodbowl.models.TurnHistory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -20,6 +21,10 @@ public class PlaceAction implements Action {
         if (board.isOccupied(coordinate)) {
             throw new FailedPreconditionException("can not place " + player + ": square is occupied");
         }
+    }
+
+    @Override
+    public void checkState(TurnHistory history) throws FailedPreconditionException {
     }
 
     public void execute(Board board) {

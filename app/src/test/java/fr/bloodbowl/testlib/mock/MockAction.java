@@ -3,6 +3,7 @@ package fr.bloodbowl.testlib.mock;
 import fr.bloodbowl.action.Action;
 import fr.bloodbowl.action.FailedPreconditionException;
 import fr.bloodbowl.models.Board;
+import fr.bloodbowl.models.TurnHistory;
 
 public class MockAction implements Action {
     private final boolean shouldFail;
@@ -25,6 +26,10 @@ public class MockAction implements Action {
         if (shouldFail) {
             throw new FailedPreconditionException("for testing purpose");
         }
+    }
+
+    @Override
+    public void checkState(TurnHistory history) throws FailedPreconditionException {
     }
 
     @Override

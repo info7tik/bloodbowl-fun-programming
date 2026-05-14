@@ -3,6 +3,7 @@ package fr.bloodbowl.action;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.Player;
+import fr.bloodbowl.models.TurnHistory;
 
 public class MoveAction implements Action {
     private final Player player;
@@ -29,6 +30,10 @@ public class MoveAction implements Action {
             throw new FailedPreconditionException(
                     "can not move player " + player + " at the same position " + playerPosition);
         }
+    }
+
+    @Override
+    public void checkState(TurnHistory history) throws FailedPreconditionException {
     }
 
     @Override
