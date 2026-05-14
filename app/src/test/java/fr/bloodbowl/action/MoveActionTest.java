@@ -1,5 +1,7 @@
 package fr.bloodbowl.action;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -63,15 +65,14 @@ public class MoveActionTest {
 
     @Test
     void checkPreconditionWhenMovingPlayersThatDoesNotExistMustFail() {
-        Position distantPosition = new Position(3, 4);
-        MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
+        MoveAction action = new MoveAction(DataBuilder.player1(), buildClosePosition());
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(DataBuilder.emptyBoard()));
     }
 
     @Test
     void checkPreconditionWhenMovingToOccupiedSquaresMustFail() {
         Player player1 = DataBuilder.player1();
-        Position occupiedPosition = new Position(player1Position.getRow(), player1Position.getColumn() + 1);
+        Position occupiedPosition = buildClosePosition();
         boardWithPlayer.placeAt(occupiedPosition, DataBuilder.player2());
         MoveAction action = new MoveAction(player1, occupiedPosition);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(boardWithPlayer));
@@ -79,21 +80,35 @@ public class MoveActionTest {
 
     @Test
     void checkStateForPlayersNotInHistoryMustFail() {
-        MoveAction action = new MoveAction(DataBuilder.player1(), new Position(3, 5));
+        MoveAction action = new MoveAction(DataBuilder.player1(), buildClosePosition());
         assertThrows(FailedPreconditionException.class, () -> action.checkState(emptyHistory));
     }
 
     @Test
     void checkStateForPlayersWithEnoughMovementMustSucceed() throws FailedPreconditionException {
-        MoveAction action = new MoveAction(DataBuilder.player1(), new Position(3, 5));
+        MoveAction action = new MoveAction(DataBuilder.player1(), buildClosePosition());
         action.checkState(activePlayerHistory);
     }
 
     @Test
     void checkStateForPlayersWithExhaustedMovementMustFail() {
         Player player1 = DataBuilder.player1();
-        MoveAction action = new MoveAction(player1, new Position(3, 5));
+        MoveAction action = new MoveAction(player1, buildClosePosition());
         activePlayerHistory.registerMovement(player1.getIdentifier(), player1.getMovement());
         assertThrows(FailedPreconditionException.class, () -> action.checkState(emptyHistory));
+    }
+
+    @Test
+    void executeMoveActionMustMoveThePlayer() {
+        Player player1 = DataBuilder.player1();
+        Position destination = buildClosePosition();
+        MoveAction action = new MoveAction(player1, destination);
+        assertNotEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
+        action.execute(boardWithPlayer);
+        assertEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
+    }
+
+    private Position buildClosePosition() {
+        return new Position(player1Position.getRow(), player1Position.getColumn() + 1);
     }
 }

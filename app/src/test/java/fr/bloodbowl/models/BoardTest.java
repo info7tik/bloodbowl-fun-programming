@@ -95,12 +95,12 @@ public class BoardTest {
         Player player = DataBuilder.player1();
         board.placeAt(position, player);
         assertTrue(board.isOccupied(position));
-        board.remove(player);
+        board.remove(player.getIdentifier());
         assertFalse(board.isOccupied(position));
     }
 
     @Test
     void removeNotExistingElementsFromTheBoardDoNothing() {
-        board.remove(DataBuilder.player1());
+        board.remove(DataBuilder.player1().getIdentifier());
     }
 }

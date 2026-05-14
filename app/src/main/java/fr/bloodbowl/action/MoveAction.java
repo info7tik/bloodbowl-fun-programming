@@ -50,5 +50,7 @@ public class MoveAction implements Action {
 
     @Override
     public void execute(Board board) {
+        board.remove(player.getIdentifier());
+        board.placeAt(destination, player);
     }
 }
