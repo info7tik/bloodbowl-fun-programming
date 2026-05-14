@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bloodbowl.testlib.DataGenerator;
+import fr.bloodbowl.testlib.DataBuilder;
 
 public class BoardTest {
     private Board board = new Board();
@@ -25,14 +25,14 @@ public class BoardTest {
     @Test()
     void getPositionOfExistingPlayer() {
         Coordinate playerPosition = new Coordinate(3, 4);
-        Board boardWithPlayer = DataGenerator.boardWithPlayer1(playerPosition);
-        assertEquals(playerPosition, boardWithPlayer.get(DataGenerator.player1().getIdentifier()));
+        Board boardWithPlayer = DataBuilder.boardWithPlayer1(playerPosition);
+        assertEquals(playerPosition, boardWithPlayer.get(DataBuilder.player1().getIdentifier()));
     }
 
     @Test
     void placeElementsInEmptySquare() {
         Coordinate coord = new Coordinate(3, 4);
-        Player player = DataGenerator.player1();
+        Player player = DataBuilder.player1();
         board.placeAt(coord, player);
         assertEquals(player, board.get(coord));
     }
@@ -41,7 +41,7 @@ public class BoardTest {
     void ensurePlaceAtCanManageEqualCoordinates() {
         int row = 3;
         int column = 4;
-        Player player = DataGenerator.player1();
+        Player player = DataBuilder.player1();
         board.placeAt(new Coordinate(row, column), player);
         assertEquals(player, board.get(new Coordinate(row, column)));
     }
@@ -49,7 +49,7 @@ public class BoardTest {
     @Test
     void placeElementsInOccupiedSquareMustThrowException() {
         Coordinate coord = new Coordinate(3, 4);
-        Player player = DataGenerator.player1();
+        Player player = DataBuilder.player1();
         board.placeAt(coord, player);
         assertThrows(IllegalArgumentException.class, () -> board.placeAt(coord, player));
     }
@@ -58,7 +58,7 @@ public class BoardTest {
     void placeTheSameElementTwiceMustThrowException() {
         Coordinate coord1 = new Coordinate(3, 4);
         Coordinate coord2 = new Coordinate(3, 6);
-        Player player = DataGenerator.player1();
+        Player player = DataBuilder.player1();
         board.placeAt(coord1, player);
         assertThrows(IllegalArgumentException.class, () -> board.placeAt(coord2, player));
     }
@@ -67,32 +67,32 @@ public class BoardTest {
     void detectEmptySquares() {
         Coordinate coord = new Coordinate(3, 4);
         assertTrue(board.isEmpty(coord));
-        board.placeAt(coord, DataGenerator.player1());
+        board.placeAt(coord, DataBuilder.player1());
         assertFalse(board.isEmpty(coord));
     }
 
     @Test()
     void detectTheElementIsInTheSquare() {
         Coordinate coord = new Coordinate(3, 4);
-        Player player = DataGenerator.player1();
+        Player player = DataBuilder.player1();
         assertFalse(board.has(player));
         board.placeAt(coord, player);
         assertTrue(board.has(player));
-        assertFalse(board.has(DataGenerator.player2()));
+        assertFalse(board.has(DataBuilder.player2()));
     }
 
     @Test()
     void detectOccupiedSquares() {
         Coordinate coord = new Coordinate(3, 4);
         assertFalse(board.isOccupied(coord));
-        board.placeAt(coord, DataGenerator.player1());
+        board.placeAt(coord, DataBuilder.player1());
         assertTrue(board.isOccupied(coord));
     }
 
     @Test
     void removeElementsFromTheBoard() {
         Coordinate coord = new Coordinate(3, 4);
-        Player player = DataGenerator.player1();
+        Player player = DataBuilder.player1();
         board.placeAt(coord, player);
         assertTrue(board.isOccupied(coord));
         board.remove(player);
@@ -101,6 +101,6 @@ public class BoardTest {
 
     @Test
     void removeNotExistingElementsFromTheBoardDoNothing() {
-        board.remove(DataGenerator.player1());
+        board.remove(DataBuilder.player1());
     }
 }

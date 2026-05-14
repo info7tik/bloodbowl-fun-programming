@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Coordinate;
-import fr.bloodbowl.testlib.DataGenerator;
+import fr.bloodbowl.testlib.DataBuilder;
 
 public class PlaceActionTest {
     private Board board = new Board();
@@ -15,30 +15,30 @@ public class PlaceActionTest {
     @Test
     void checkPreconditionWithEmptyBoard() throws FailedPreconditionException {
         Coordinate coord = new Coordinate(3, 4);
-        PlaceAction action = new PlaceAction(DataGenerator.player1(), coord);
+        PlaceAction action = new PlaceAction(DataBuilder.player1(), coord);
         action.checkPrecondition(board);
     }
 
     @Test
     void checkPreconditionWithPlayerAlreadyPlaced() {
         Coordinate coord = new Coordinate(3, 4);
-        board.placeAt(coord, DataGenerator.player1());
-        PlaceAction action = new PlaceAction(DataGenerator.player1(), coord);
+        board.placeAt(coord, DataBuilder.player1());
+        PlaceAction action = new PlaceAction(DataBuilder.player1(), coord);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(board));
     }
 
     @Test
     void checkPreconditionWithPlayerAlreadyAtCoordinate() {
         Coordinate coord = new Coordinate(3, 4);
-        board.placeAt(coord, DataGenerator.player2());
-        PlaceAction action = new PlaceAction(DataGenerator.player1(), coord);
+        board.placeAt(coord, DataBuilder.player2());
+        PlaceAction action = new PlaceAction(DataBuilder.player1(), coord);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(board));
     }
 
     @Test
     void execute() {
         Coordinate coord = new Coordinate(3, 4);
-        PlaceAction action = new PlaceAction(DataGenerator.player1(), coord);
+        PlaceAction action = new PlaceAction(DataBuilder.player1(), coord);
         action.execute(board);
         assertEquals(action.getPlayer(), board.get(coord));
     }

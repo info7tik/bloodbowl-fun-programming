@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.TurnHistory;
-import fr.bloodbowl.testlib.DataGenerator;
+import fr.bloodbowl.testlib.DataBuilder;
 
 public class MoveActionTest {
     private final Coordinate player1Position = new Coordinate(3, 4);
-    private final Board board = DataGenerator.boardWithPlayer1(player1Position);
-    private final TurnHistory history = DataGenerator.emptyHistory();
+    private final Board board = DataBuilder.boardWithPlayer1(player1Position);
+    private final TurnHistory history = DataBuilder.emptyHistory();
 
     @Test
     void checkPreconditionWhenMovingPlayersToAdjacentVerticalSquare() throws FailedPreconditionException {
@@ -37,7 +37,7 @@ public class MoveActionTest {
     private void checkPreconditionWhenMovingToWithSuccess(int destRow, int destColumn)
             throws FailedPreconditionException {
         Coordinate destination = new Coordinate(destRow, destColumn);
-        MoveAction action = new MoveAction(DataGenerator.player1(), destination);
+        MoveAction action = new MoveAction(DataBuilder.player1(), destination);
         action.checkPrecondition(board);
     }
 
@@ -56,13 +56,13 @@ public class MoveActionTest {
     @Test
     void checkPreconditionWhenMovingPlayersThatDoesNotExistMustThrowException() {
         Coordinate distantPosition = new Coordinate(3, 4);
-        MoveAction action = new MoveAction(DataGenerator.player1(), distantPosition);
+        MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(new Board()));
     }
 
     private void checkPreconditionWithErrorWhenMovingTo(int destRow, int destColumn) {
         Coordinate distantPosition = new Coordinate(destRow, destColumn);
-        MoveAction action = new MoveAction(DataGenerator.player1(), distantPosition);
+        MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(board));
     }
 }

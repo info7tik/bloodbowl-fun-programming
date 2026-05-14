@@ -5,7 +5,7 @@ import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.TurnHistory;
 
-public class DataGenerator {
+public class DataBuilder {
     public static Player player1() {
         return new Player("player1");
     }
