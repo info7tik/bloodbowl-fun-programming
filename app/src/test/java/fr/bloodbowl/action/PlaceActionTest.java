@@ -10,7 +10,7 @@ import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.testlib.DataBuilder;
 
 public class PlaceActionTest {
-    private Board board = new Board();
+    private Board board = DataBuilder.emptyBoard();
 
     @Test
     void checkPreconditionWithEmptyBoard() throws FailedPreconditionException {

@@ -57,7 +57,7 @@ public class MoveActionTest {
     void checkPreconditionWhenMovingPlayersThatDoesNotExistMustThrowException() {
         Coordinate distantPosition = new Coordinate(3, 4);
         MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
-        assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(new Board()));
+        assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(DataBuilder.emptyBoard()));
     }
 
     private void checkPreconditionWithErrorWhenMovingTo(int destRow, int destColumn) {

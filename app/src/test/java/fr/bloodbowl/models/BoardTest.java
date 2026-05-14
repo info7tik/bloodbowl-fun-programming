@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import fr.bloodbowl.testlib.DataBuilder;
 
 public class BoardTest {
-    private Board board = new Board();
+    private Board board = DataBuilder.emptyBoard();
 
     @Test()
     void getElementFromEmptySquaresMustThrowException() {
