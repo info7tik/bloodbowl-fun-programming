@@ -13,14 +13,14 @@ public class PlaceActionTest {
     private Board board = DataBuilder.emptyBoard();
 
     @Test
-    void checkPreconditionWithEmptyBoard() throws FailedPreconditionException {
+    void checkPreconditionWhenPlacingThePlayerMustSucceed() throws FailedPreconditionException {
         Position position = new Position(3, 4);
         PlaceAction action = new PlaceAction(DataBuilder.player1(), position);
         action.checkPrecondition(board);
     }
 
     @Test
-    void checkPreconditionWithPlayerAlreadyPlaced() {
+    void checkPreconditionWhenPlacingPlayersAlreadyPlaced() {
         Position position = new Position(3, 4);
         board.placeAt(position, DataBuilder.player1());
         PlaceAction action = new PlaceAction(DataBuilder.player1(), position);
@@ -28,7 +28,7 @@ public class PlaceActionTest {
     }
 
     @Test
-    void checkPreconditionWithPlayerAlreadyAtPosition() {
+    void checkPreconditionWhenPlacingThePlayerAtAnOccupiedSquare() {
         Position position = new Position(3, 4);
         board.placeAt(position, DataBuilder.player2());
         PlaceAction action = new PlaceAction(DataBuilder.player1(), position);
@@ -36,7 +36,7 @@ public class PlaceActionTest {
     }
 
     @Test
-    void execute() {
+    void executePlaceThePlayerOnTheBoard() {
         Position position = new Position(3, 4);
         PlaceAction action = new PlaceAction(DataBuilder.player1(), position);
         action.execute(board);
