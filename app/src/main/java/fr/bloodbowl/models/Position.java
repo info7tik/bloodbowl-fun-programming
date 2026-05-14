@@ -4,13 +4,13 @@ import java.util.Objects;
 
 import lombok.Getter;
 
-public class Coordinate {
+public class Position {
     @Getter
     private final int row;
     @Getter
     private final int column;
 
-    public Coordinate(int row, int column) {
+    public Position(int row, int column) {
         this.row = row;
         this.column = column;
     }
@@ -21,7 +21,7 @@ public class Coordinate {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Coordinate that = (Coordinate) o;
+        Position that = (Position) o;
         return row == that.row && column == that.column;
     }
 

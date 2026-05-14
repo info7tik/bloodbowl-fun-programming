@@ -14,7 +14,7 @@ public class BoardTest {
 
     @Test()
     void getElementFromEmptySquaresMustThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> board.get(new Coordinate(3, 4)));
+        assertThrows(IllegalArgumentException.class, () -> board.get(new Position(3, 4)));
     }
 
     @Test()
@@ -24,79 +24,79 @@ public class BoardTest {
 
     @Test()
     void getPositionOfExistingPlayer() {
-        Coordinate playerPosition = new Coordinate(3, 4);
+        Position playerPosition = new Position(3, 4);
         Board boardWithPlayer = DataBuilder.boardWithPlayer1(playerPosition);
         assertEquals(playerPosition, boardWithPlayer.get(DataBuilder.player1().getIdentifier()));
     }
 
     @Test
     void placeElementsInEmptySquare() {
-        Coordinate coord = new Coordinate(3, 4);
+        Position position = new Position(3, 4);
         Player player = DataBuilder.player1();
-        board.placeAt(coord, player);
-        assertEquals(player, board.get(coord));
+        board.placeAt(position, player);
+        assertEquals(player, board.get(position));
     }
 
     @Test
-    void ensurePlaceAtCanManageEqualCoordinates() {
+    void ensurePlaceAtCanManageEqualPositionWithDifferentObject() {
         int row = 3;
         int column = 4;
         Player player = DataBuilder.player1();
-        board.placeAt(new Coordinate(row, column), player);
-        assertEquals(player, board.get(new Coordinate(row, column)));
+        board.placeAt(new Position(row, column), player);
+        assertEquals(player, board.get(new Position(row, column)));
     }
 
     @Test
     void placeElementsInOccupiedSquareMustThrowException() {
-        Coordinate coord = new Coordinate(3, 4);
+        Position position = new Position(3, 4);
         Player player = DataBuilder.player1();
-        board.placeAt(coord, player);
-        assertThrows(IllegalArgumentException.class, () -> board.placeAt(coord, player));
+        board.placeAt(position, player);
+        assertThrows(IllegalArgumentException.class, () -> board.placeAt(position, player));
     }
 
     @Test
     void placeTheSameElementTwiceMustThrowException() {
-        Coordinate coord1 = new Coordinate(3, 4);
-        Coordinate coord2 = new Coordinate(3, 6);
+        Position position1 = new Position(3, 4);
+        Position position2 = new Position(3, 6);
         Player player = DataBuilder.player1();
-        board.placeAt(coord1, player);
-        assertThrows(IllegalArgumentException.class, () -> board.placeAt(coord2, player));
+        board.placeAt(position1, player);
+        assertThrows(IllegalArgumentException.class, () -> board.placeAt(position2, player));
     }
 
     @Test()
     void detectEmptySquares() {
-        Coordinate coord = new Coordinate(3, 4);
-        assertTrue(board.isEmpty(coord));
-        board.placeAt(coord, DataBuilder.player1());
-        assertFalse(board.isEmpty(coord));
+        Position position = new Position(3, 4);
+        assertTrue(board.isEmpty(position));
+        board.placeAt(position, DataBuilder.player1());
+        assertFalse(board.isEmpty(position));
     }
 
     @Test()
     void detectTheElementIsInTheSquare() {
-        Coordinate coord = new Coordinate(3, 4);
+        Position position = new Position(3, 4);
         Player player = DataBuilder.player1();
         assertFalse(board.has(player.getIdentifier()));
-        board.placeAt(coord, player);
+        board.placeAt(position, player);
         assertTrue(board.has(player.getIdentifier()));
         assertFalse(board.has(DataBuilder.player2().getIdentifier()));
     }
 
     @Test()
     void detectOccupiedSquares() {
-        Coordinate coord = new Coordinate(3, 4);
-        assertFalse(board.isOccupied(coord));
-        board.placeAt(coord, DataBuilder.player1());
-        assertTrue(board.isOccupied(coord));
+        Position position = new Position(3, 4);
+        assertFalse(board.isOccupied(position));
+        board.placeAt(position, DataBuilder.player1());
+        assertTrue(board.isOccupied(position));
     }
 
     @Test
     void removeElementsFromTheBoard() {
-        Coordinate coord = new Coordinate(3, 4);
+        Position position = new Position(3, 4);
         Player player = DataBuilder.player1();
-        board.placeAt(coord, player);
-        assertTrue(board.isOccupied(coord));
+        board.placeAt(position, player);
+        assertTrue(board.isOccupied(position));
         board.remove(player);
-        assertFalse(board.isOccupied(coord));
+        assertFalse(board.isOccupied(position));
     }
 
     @Test

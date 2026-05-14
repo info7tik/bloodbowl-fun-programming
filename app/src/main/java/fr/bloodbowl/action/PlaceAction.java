@@ -1,8 +1,8 @@
 package fr.bloodbowl.action;
 
 import fr.bloodbowl.models.Board;
-import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.Player;
+import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,13 +12,13 @@ public class PlaceAction implements Action {
     @Getter
     private Player player;
     @Getter
-    private Coordinate coordinate;
+    private Position position;
 
     public void checkPrecondition(Board board) throws FailedPreconditionException {
         if (board.has(player.getIdentifier())) {
             throw new FailedPreconditionException("can not place " + player + ": element is already on the board");
         }
-        if (board.isOccupied(coordinate)) {
+        if (board.isOccupied(position)) {
             throw new FailedPreconditionException("can not place " + player + ": square is occupied");
         }
     }
@@ -28,11 +28,11 @@ public class PlaceAction implements Action {
     }
 
     public void execute(Board board) {
-        board.placeAt(coordinate, player);
+        board.placeAt(position, player);
     }
 
     @Override
     public String toString() {
-        return "<Place " + player + " at " + coordinate + ">";
+        return "<Place " + player + " at " + position + ">";
     }
 }

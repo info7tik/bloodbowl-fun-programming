@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 public class Board {
-    private Map<Coordinate, List<Player>> occupiedSquares = new HashMap<>();
-    private Map<String, Coordinate> placedElements = new HashMap<>();
+    private Map<Position, List<Player>> occupiedSquares = new HashMap<>();
+    private Map<String, Position> placedElements = new HashMap<>();
 
-    public void placeAt(Coordinate coord, Player player) {
+    public void placeAt(Position position, Player player) {
         if (placedElements.containsKey(player.getIdentifier())) {
             throw new IllegalArgumentException("element " + player + " is already in the board");
         }
-        if (!occupiedSquares.containsKey(coord)) {
-            occupiedSquares.put(coord, new ArrayList<>());
+        if (!occupiedSquares.containsKey(position)) {
+            occupiedSquares.put(position, new ArrayList<>());
         }
-        occupiedSquares.get(coord).add(player);
-        placedElements.put(player.getIdentifier(), coord);
+        occupiedSquares.get(position).add(player);
+        placedElements.put(player.getIdentifier(), position);
     }
 
     public void remove(Player player) {
@@ -30,13 +30,13 @@ public class Board {
         }
     }
 
-    public Player get(Coordinate coord) {
-        if (occupiedSquares.containsKey(coord))
-            return occupiedSquares.get(coord).get(0);
-        throw new IllegalArgumentException("no element at " + coord);
+    public Player get(Position position) {
+        if (occupiedSquares.containsKey(position))
+            return occupiedSquares.get(position).get(0);
+        throw new IllegalArgumentException("no element at " + position);
     }
 
-    public Coordinate get(String playerId) {
+    public Position get(String playerId) {
         if (placedElements.containsKey(playerId))
             return placedElements.get(playerId);
         throw new IllegalArgumentException("no element with id " + playerId);
@@ -46,11 +46,11 @@ public class Board {
         return placedElements.containsKey(playerId);
     }
 
-    public boolean isOccupied(Coordinate coord) {
-        return occupiedSquares.containsKey(coord) && !occupiedSquares.get(coord).isEmpty();
+    public boolean isOccupied(Position position) {
+        return occupiedSquares.containsKey(position) && !occupiedSquares.get(position).isEmpty();
     }
 
-    public boolean isEmpty(Coordinate coord) {
-        return !isOccupied(coord);
+    public boolean isEmpty(Position position) {
+        return !isOccupied(position);
     }
 }

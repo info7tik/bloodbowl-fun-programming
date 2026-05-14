@@ -1,5 +1,5 @@
 X Move action (player skill)
-- Rename Coordinate to Position
+X Rename Coordinate to Position
 - Create ActionFactory
 - Fight action (roll dices) -> knocked players
 - Place ball (manage both players and the ball)

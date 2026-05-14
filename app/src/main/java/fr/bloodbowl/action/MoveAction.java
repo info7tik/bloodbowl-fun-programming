@@ -1,15 +1,15 @@
 package fr.bloodbowl.action;
 
 import fr.bloodbowl.models.Board;
-import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.Player;
+import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
 
 public class MoveAction implements Action {
     private final Player player;
-    private final Coordinate destination;
+    private final Position destination;
 
-    public MoveAction(Player player, Coordinate destination) {
+    public MoveAction(Player player, Position destination) {
         this.player = player;
         this.destination = destination;
     }
@@ -23,7 +23,7 @@ public class MoveAction implements Action {
             throw new FailedPreconditionException(
                     "can not move player " + player + ": " + destination + " is occupied");
         }
-        Coordinate playerPosition = board.get(player.getIdentifier());
+        Position playerPosition = board.get(player.getIdentifier());
         int rowDifference = Math.abs(playerPosition.getRow() - destination.getRow());
         int columnDifference = Math.abs(playerPosition.getColumn() - destination.getColumn());
         if (rowDifference > 1 || columnDifference > 1) {

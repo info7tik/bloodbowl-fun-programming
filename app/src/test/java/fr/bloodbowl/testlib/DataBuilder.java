@@ -1,9 +1,9 @@
 package fr.bloodbowl.testlib;
 
 import fr.bloodbowl.models.Board;
-import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.PlayerBuilder;
+import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
 
 public class DataBuilder {
@@ -19,7 +19,7 @@ public class DataBuilder {
         return new Board();
     }
 
-    public static Board boardWithPlayer1(Coordinate playerPosition) {
+    public static Board boardWithPlayer1(Position playerPosition) {
         Board board = emptyBoard();
         board.placeAt(playerPosition, player1());
         return board;

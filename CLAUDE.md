@@ -23,14 +23,14 @@ All commands use Gradle and should be run from the project root.
 ### Package Structure
 
 - **`fr.bloodbowl.models`** — Core domain models:
-  - `Board` — manages the game board state, tracks player positions using a coordinate-to-players map
-  - `Coordinate` — immutable 2D position (row, column)
+  - `Board` — manages the game board state, tracks player positions using a position-to-players map
+  - `Position` — immutable 2D position (row, column)
   - `Player` — represents a player on the board with an identifier
 
 - **`fr.bloodbowl.action`** — Action pattern implementation:
   - `Action` interface — defines the contract: `checkPrecondition()` and `execute()`
   - `ActionExecutor` — orchestrates action execution with precondition checks
-  - `PlaceAction` — concrete action to place a player at a coordinate
+  - `PlaceAction` — concrete action to place a player at a position
   - `FailedPreconditionException` — thrown when a precondition fails
 
 - **`fr.bloodbowl`** — Application:
@@ -42,10 +42,10 @@ All commands use Gradle and should be run from the project root.
 - `checkPrecondition(Board)` — validate that the action can be executed (throws `FailedPreconditionException` if not)
 - `execute(Board)` — modify board state
 
-The `ActionExecutor` coordinates: call `checkPrecondition()` first, then `execute()` if it passes.
+The `ActionExecutor` positions: call `checkPrecondition()` first, then `execute()` if it passes.
 
 **Board State**: The `Board` tracks player positions using two maps:
-- `occupiedSquares`: `Coordinate → List<Player>` (multiple players can occupy the same square)
+- `occupiedSquares`: `Position → List<Player>` (multiple players can occupy the same square)
 - `placedElements`: `String (player ID) → Player` (quick lookup by identifier)
 
 ## Dependencies
