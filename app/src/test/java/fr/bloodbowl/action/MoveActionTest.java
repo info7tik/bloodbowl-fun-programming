@@ -12,7 +12,7 @@ import fr.bloodbowl.testlib.DataBuilder;
 
 public class MoveActionTest {
     private final Coordinate player1Position = new Coordinate(3, 4);
-    private final Board board = DataBuilder.boardWithPlayer1(player1Position);
+    private final Board boardWithPlayer = DataBuilder.boardWithPlayer1(player1Position);
     private final TurnHistory emptyHistory = DataBuilder.emptyHistory();
     private final TurnHistory activePlayerHistory = DataBuilder.historyWithActivePlayer1();
 
@@ -40,7 +40,7 @@ public class MoveActionTest {
             throws FailedPreconditionException {
         Coordinate destination = new Coordinate(destRow, destColumn);
         MoveAction action = new MoveAction(DataBuilder.player1(), destination);
-        action.checkPrecondition(board);
+        action.checkPrecondition(boardWithPlayer);
     }
 
     @Test
@@ -55,6 +55,12 @@ public class MoveActionTest {
         checkPreconditionMustFailWhenMovingTo(player1Position.getRow(), player1Position.getColumn());
     }
 
+    private void checkPreconditionMustFailWhenMovingTo(int destRow, int destColumn) {
+        Coordinate distantPosition = new Coordinate(destRow, destColumn);
+        MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
+        assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(boardWithPlayer));
+    }
+
     @Test
     void checkPreconditionWhenMovingPlayersThatDoesNotExistMustFail() {
         Coordinate distantPosition = new Coordinate(3, 4);
@@ -62,10 +68,13 @@ public class MoveActionTest {
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(DataBuilder.emptyBoard()));
     }
 
-    private void checkPreconditionMustFailWhenMovingTo(int destRow, int destColumn) {
-        Coordinate distantPosition = new Coordinate(destRow, destColumn);
-        MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
-        assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(board));
+    @Test
+    void checkPreconditionWhenMovingToOccupiedSquaresMustFail() {
+        Player player1 = DataBuilder.player1();
+        Coordinate occupiedPosition = new Coordinate(player1Position.getRow(), player1Position.getColumn() + 1);
+        boardWithPlayer.placeAt(occupiedPosition, DataBuilder.player2());
+        MoveAction action = new MoveAction(player1, occupiedPosition);
+        assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(boardWithPlayer));
     }
 
     @Test

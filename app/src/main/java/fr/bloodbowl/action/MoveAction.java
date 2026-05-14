@@ -17,14 +17,19 @@ public class MoveAction implements Action {
     @Override
     public void checkPrecondition(Board board) throws FailedPreconditionException {
         if (!board.has(player.getIdentifier())) {
-            throw new FailedPreconditionException("can not move non existing player " + player);
+            throw new FailedPreconditionException("can not move player " + player + ": player does not exist");
+        }
+        if (board.isOccupied(destination)) {
+            throw new FailedPreconditionException(
+                    "can not move player " + player + ": " + destination + " is occupied");
         }
         Coordinate playerPosition = board.get(player.getIdentifier());
         int rowDifference = Math.abs(playerPosition.getRow() - destination.getRow());
         int columnDifference = Math.abs(playerPosition.getColumn() - destination.getColumn());
         if (rowDifference > 1 || columnDifference > 1) {
             throw new FailedPreconditionException(
-                    "can not move player " + player + " from " + playerPosition + " to " + destination);
+                    "can not move player " + player + " from " + playerPosition + " to " + destination
+                            + ": destination is too far away");
         }
         if (rowDifference + columnDifference == 0) {
             throw new FailedPreconditionException(
