@@ -3,17 +3,16 @@ package fr.bloodbowl.testlib;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Coordinate;
 import fr.bloodbowl.models.Player;
+import fr.bloodbowl.models.PlayerBuilder;
 import fr.bloodbowl.models.TurnHistory;
 
 public class DataBuilder {
     public static Player player1() {
-        int movement = 1;
-        return new Player("player1", movement);
+        return new PlayerBuilder().withIdentifier("player1").withMovement(1).build();
     }
 
     public static Player player2() {
-        int movement = 2;
-        return new Player("player2", movement);
+        return new PlayerBuilder().withIdentifier("player2").withMovement(2).build();
     }
 
     public static Board emptyBoard() {

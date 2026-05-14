@@ -1,10 +1,11 @@
 package fr.bloodbowl.models;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
-public class Player {
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+public final class Player {
     @Getter
     private final String identifier;
     @Getter
