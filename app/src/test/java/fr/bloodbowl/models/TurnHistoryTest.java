@@ -5,14 +5,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.testlib.DataBuilder;
 
 public class TurnHistoryTest {
     private TurnHistory emptyHistory = DataBuilder.emptyHistory();
-    private Player player1 = DataBuilder.player1();
     private TurnHistory activePlayerHistory = DataBuilder.historyWithActivePlayer1();
+    private Player player1, player2;
+
+    @BeforeAll
+    void buildBoard() {
+        DataBuilder.buildPlayers(2);
+        player1 = DataBuilder.getPlayer(1);
+        player2 = DataBuilder.getPlayer(2);
+    }
 
     @Test
     void isActivePlayerWithSuccess() {
@@ -57,7 +65,6 @@ public class TurnHistoryTest {
 
     @Test
     void registerMUltiplePlayerMovementsWithSuccess() {
-        Player player2 = DataBuilder.player2();
         activePlayerHistory.addActivePlayer(player2.getIdentifier());
         int oneSquareMove = 1;
         activePlayerHistory.registerMovement(player1.getIdentifier());

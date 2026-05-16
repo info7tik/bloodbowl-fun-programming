@@ -30,7 +30,7 @@ public class PlaceActionTest {
     @Test
     void checkPreconditionWhenPlacingThePlayerAtAnOccupiedSquare() {
         Position position = new Position(3, 4);
-        board.placeAt(position, DataBuilder.player2());
+        board.placeAt(position, DataBuilder.getPlayer(2));
         PlaceAction action = new PlaceAction(DataBuilder.player1(), position);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(board));
     }

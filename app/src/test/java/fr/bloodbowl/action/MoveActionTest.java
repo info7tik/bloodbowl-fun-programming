@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.models.Board;
@@ -14,7 +16,7 @@ import fr.bloodbowl.testlib.DataBuilder;
 
 public class MoveActionTest {
     private final Position player1Position = new Position(3, 4);
-    private final Board boardWithPlayer = DataBuilder.boardWithPlayer1(player1Position);
+    private final Board boardWithPlayer = DataBuilder.boardWithPlayers(List.of(player1Position));
     private final TurnHistory emptyHistory = DataBuilder.emptyHistory();
     private final TurnHistory activePlayerHistory = DataBuilder.historyWithActivePlayer1();
 
@@ -73,7 +75,7 @@ public class MoveActionTest {
     void checkPreconditionWhenMovingToOccupiedSquaresMustFail() {
         Player player1 = DataBuilder.player1();
         Position occupiedPosition = buildClosePosition();
-        boardWithPlayer.placeAt(occupiedPosition, DataBuilder.player2());
+        boardWithPlayer.placeAt(occupiedPosition, DataBuilder.getPlayer(2));
         MoveAction action = new MoveAction(player1, occupiedPosition);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(boardWithPlayer));
     }

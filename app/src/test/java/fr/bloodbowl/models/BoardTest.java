@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.testlib.DataBuilder;
@@ -25,7 +27,7 @@ public class BoardTest {
     @Test()
     void getPositionOfExistingPlayer() {
         Position playerPosition = new Position(3, 4);
-        Board boardWithPlayer = DataBuilder.boardWithPlayer1(playerPosition);
+        Board boardWithPlayer = DataBuilder.boardWithPlayers(List.of(playerPosition));
         assertEquals(playerPosition, boardWithPlayer.get(DataBuilder.player1().getIdentifier()));
     }
 
@@ -78,7 +80,7 @@ public class BoardTest {
         assertFalse(board.has(player.getIdentifier()));
         board.placeAt(position, player);
         assertTrue(board.has(player.getIdentifier()));
-        assertFalse(board.has(DataBuilder.player2().getIdentifier()));
+        assertFalse(board.has(DataBuilder.getPlayer(2).getIdentifier()));
     }
 
     @Test()
