@@ -15,6 +15,18 @@ public class Position {
         this.column = column;
     }
 
+    public boolean isAdjacent(Position anotherPosition) {
+        int rowDifference = Math.abs(getRow() - anotherPosition.getRow());
+        int columnDifference = Math.abs(getColumn() - anotherPosition.getColumn());
+        if (rowDifference > 1 || columnDifference > 1) {
+            return false;
+        }
+        if (rowDifference + columnDifference == 0) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
