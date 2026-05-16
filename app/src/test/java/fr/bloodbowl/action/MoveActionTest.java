@@ -4,19 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
+import fr.bloodbowl.models.PlayerBuilder;
 import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
 import fr.bloodbowl.testlib.DataBuilder;
 
 public class MoveActionTest {
+    private final Player player1 = DataBuilder.player1();
     private final Position player1Position = new Position(3, 4);
-    private final Board boardWithPlayer = DataBuilder.boardWithPlayers(List.of(player1Position));
     private final TurnHistory emptyHistory = DataBuilder.emptyHistory();
     private final TurnHistory activePlayerHistory = DataBuilder.historyWithActivePlayer1();
 
@@ -42,8 +41,9 @@ public class MoveActionTest {
 
     private void checkPreconditionWhenMovingToMustSucceed(int destRow, int destColumn)
             throws FailedPreconditionException {
+        Board boardWithPlayer = buildBoardWithPlayer(player1, player1Position);
         Position destination = new Position(destRow, destColumn);
-        MoveAction action = new MoveAction(DataBuilder.player1(), destination);
+        MoveAction action = new MoveAction(player1, destination);
         action.checkPrecondition(boardWithPlayer);
     }
 
@@ -60,8 +60,9 @@ public class MoveActionTest {
     }
 
     private void checkPreconditionMustFailWhenMovingTo(int destRow, int destColumn) {
+        Board boardWithPlayer = buildBoardWithPlayer(player1, player1Position);
         Position distantPosition = new Position(destRow, destColumn);
-        MoveAction action = new MoveAction(DataBuilder.player1(), distantPosition);
+        MoveAction action = new MoveAction(player1, distantPosition);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(boardWithPlayer));
     }
 
@@ -73,10 +74,10 @@ public class MoveActionTest {
 
     @Test
     void checkPreconditionWhenMovingToOccupiedSquaresMustFail() {
-        Player player1 = DataBuilder.player1();
-        Position occupiedPosition = buildClosePosition();
-        boardWithPlayer.placeAt(occupiedPosition, DataBuilder.getPlayer(2));
-        MoveAction action = new MoveAction(player1, occupiedPosition);
+        Position player2Position = buildClosePosition();
+        Board boardWithPlayer = buildBoardWithPlayer(player1, player1Position);
+        boardWithPlayer.placeAt(player2Position, DataBuilder.player2());
+        MoveAction action = new MoveAction(player1, player2Position);
         assertThrows(FailedPreconditionException.class, () -> action.checkPrecondition(boardWithPlayer));
     }
 
@@ -88,13 +89,13 @@ public class MoveActionTest {
 
     @Test
     void checkStateForPlayersWithEnoughMovementMustSucceed() throws FailedPreconditionException {
-        MoveAction action = new MoveAction(DataBuilder.player1(), buildClosePosition());
+        Player player1 = new PlayerBuilder().withIdentifier("player1").withMovement(1).build();
+        MoveAction action = new MoveAction(player1, buildClosePosition());
         action.checkState(activePlayerHistory);
     }
 
     @Test
     void checkStateForPlayersWithExhaustedMovementMustFail() {
-        Player player1 = DataBuilder.player1();
         MoveAction action = new MoveAction(player1, buildClosePosition());
         activePlayerHistory.registerMovement(player1.getIdentifier(), player1.getMovement());
         assertThrows(FailedPreconditionException.class, () -> action.checkState(emptyHistory));
@@ -103,11 +104,18 @@ public class MoveActionTest {
     @Test
     void executeMoveActionMustMoveThePlayer() {
         Player player1 = DataBuilder.player1();
+        Board boardWithPlayer = buildBoardWithPlayer(player1, player1Position);
         Position destination = buildClosePosition();
         MoveAction action = new MoveAction(player1, destination);
         assertNotEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
         action.execute(boardWithPlayer);
         assertEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
+    }
+
+    private Board buildBoardWithPlayer(Player player, Position position) {
+        Board board = DataBuilder.emptyBoard();
+        board.placeAt(position, player);
+        return board;
     }
 
     private Position buildClosePosition() {
