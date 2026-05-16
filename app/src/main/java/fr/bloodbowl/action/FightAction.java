@@ -1,29 +1,46 @@
 package fr.bloodbowl.action;
 
+import java.util.List;
+
+import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
+import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class FightAction implements Action {
-    FightAction(Player player, Player opponent) {
-
-    }
+    @Getter
+    private final Player player;
+    @Getter
+    private final Player opponent;
 
     @Override
     public void checkPrecondition(Board board) throws FailedPreconditionException {
-        // TODO Auto-generated method stub
-
+        Position playerPosition = board.get(player.getIdentifier());
+        Position opponentPosition = board.get(opponent.getIdentifier());
+        if (!playerPosition.isAdjacent(opponentPosition)) {
+            throw new FailedPreconditionException("opponent " + opponent + " is to far from player " + player);
+        }
     }
 
     @Override
     public void checkState(TurnHistory history) throws FailedPreconditionException {
-        // TODO Auto-generated method stub
-
+        if (!history.isActive(player.getIdentifier())) {
+            throw new FailedPreconditionException("can not fight: " + player + " is not active");
+        }
     }
 
     @Override
-    public void execute(Board board) {
-        // TODO Auto-generated method stub
+    public List<DieRoll> prepareDices() {
+        return List.of();
+    }
 
+    @Override
+    public void execute(Board board, TurnHistory history, DieRollResult roll) {
     }
 }

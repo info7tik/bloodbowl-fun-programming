@@ -11,4 +11,8 @@ public class ActionFactory {
     public static MoveAction move(Player player, Position destination) {
         return new MoveAction(player, destination);
     }
+
+    public static FightAction fight(Player player, Player opponent) {
+        return new FightAction(player, opponent);
+    }
 }

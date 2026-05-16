@@ -1,5 +1,9 @@
 package fr.bloodbowl.action;
 
+import java.util.List;
+
+import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.Position;
@@ -28,7 +32,12 @@ public class PlaceAction implements Action {
     public void checkState(TurnHistory history) throws FailedPreconditionException {
     }
 
-    public void execute(Board board) {
+    @Override
+    public List<DieRoll> prepareDices() {
+        return List.of();
+    }
+
+    public void execute(Board board, TurnHistory history, DieRollResult roll) {
         board.placeAt(position, player);
     }
 

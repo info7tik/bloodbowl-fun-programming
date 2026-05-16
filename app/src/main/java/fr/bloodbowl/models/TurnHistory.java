@@ -1,18 +1,34 @@
 package fr.bloodbowl.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TurnHistory {
-    private Map<String, Integer> activePlayers = new HashMap<>();
+    private List<String> activePlayers = new ArrayList<>();
+    private List<String> disabledPlayers = new ArrayList<>();
+    private Map<String, Integer> movedPlayers = new HashMap<>();
 
     public boolean isActive(String identifier) {
-        return activePlayers.containsKey(identifier);
+        return activePlayers.contains(identifier);
     }
 
     public void addActivePlayer(String identifier) {
-        if (!activePlayers.containsKey(identifier))
-            activePlayers.put(identifier, 0);
+        if (disabledPlayers.contains(identifier)) {
+            throw new IllegalArgumentException(
+                    "can not activate player '" + identifier + "'' because he is in disabled players");
+        }
+        if (!activePlayers.contains(identifier)) {
+            activePlayers.add(identifier);
+            movedPlayers.put(identifier, 0);
+        }
+    }
+
+    public void disablePlayer(String identifier) {
+        ensurePlayerExists(identifier);
+        activePlayers.remove(identifier);
+        disabledPlayers.add(identifier);
     }
 
     public void registerMovement(String identifier) {
@@ -23,17 +39,17 @@ public class TurnHistory {
 
     public void registerMovement(String identifier, int quantity) {
         ensurePlayerExists(identifier);
-        int currentMovement = activePlayers.get(identifier);
-        activePlayers.put(identifier, currentMovement + quantity);
+        int currentMovement = movedPlayers.get(identifier);
+        movedPlayers.put(identifier, currentMovement + quantity);
     }
 
     public int getMovement(String identifier) {
         ensurePlayerExists(identifier);
-        return activePlayers.get(identifier);
+        return movedPlayers.get(identifier);
     }
 
     private void ensurePlayerExists(String identifier) {
-        if (!activePlayers.containsKey(identifier)) {
+        if (!activePlayers.contains(identifier)) {
             throw new IllegalArgumentException("player " + identifier + " is not an active players");
         }
     }

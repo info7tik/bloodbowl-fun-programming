@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import fr.bloodbowl.dices.DieRollFactory;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.PlayerBuilder;
@@ -88,6 +89,14 @@ public class MoveActionTest {
     }
 
     @Test
+    void checkStateForInactivePlayersMustFail() {
+        Player player1 = new PlayerBuilder().withIdentifier("player1").withMovement(1).build();
+        MoveAction action = new MoveAction(player1, buildClosePosition());
+        activePlayerHistory.disablePlayer(player1.getIdentifier());
+        assertThrows(FailedPreconditionException.class, () -> action.checkState(activePlayerHistory));
+    }
+
+    @Test
     void checkStateForPlayersWithEnoughMovementMustSucceed() throws FailedPreconditionException {
         Player player1 = new PlayerBuilder().withIdentifier("player1").withMovement(1).build();
         MoveAction action = new MoveAction(player1, buildClosePosition());
@@ -103,13 +112,13 @@ public class MoveActionTest {
 
     @Test
     void executeMoveActionMustMoveThePlayer() {
-        Player player1 = DataBuilder.player1();
         Board boardWithPlayer = buildBoardWithPlayer(player1, player1Position);
         Position destination = buildClosePosition();
         MoveAction action = new MoveAction(player1, destination);
         assertNotEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
-        action.execute(boardWithPlayer);
+        action.execute(boardWithPlayer, activePlayerHistory, DieRollFactory.successfulResult());
         assertEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
+        assertEquals(1, activePlayerHistory.getMovement(player1.getIdentifier()));
     }
 
     private Board buildBoardWithPlayer(Player player, Position position) {

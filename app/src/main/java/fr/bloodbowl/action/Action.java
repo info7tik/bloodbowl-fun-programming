@@ -1,5 +1,9 @@
 package fr.bloodbowl.action;
 
+import java.util.List;
+
+import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.TurnHistory;
 
@@ -8,5 +12,7 @@ public interface Action {
 
     void checkState(TurnHistory history) throws FailedPreconditionException;
 
-    void execute(Board board);
+    List<DieRoll> prepareDices();
+
+    void execute(Board board, TurnHistory history, DieRollResult roll);
 }

@@ -1,5 +1,9 @@
 package fr.bloodbowl.action;
 
+import java.util.List;
+
+import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.Position;
@@ -47,8 +51,14 @@ public class MoveAction implements Action {
     }
 
     @Override
-    public void execute(Board board) {
+    public List<DieRoll> prepareDices() {
+        return List.of();
+    }
+
+    @Override
+    public void execute(Board board, TurnHistory history, DieRollResult roll) {
         board.remove(player.getIdentifier());
         board.placeAt(destination, player);
+        history.registerMovement(player.getIdentifier());
     }
 }

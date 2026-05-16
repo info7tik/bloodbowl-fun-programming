@@ -1,16 +1,26 @@
 package fr.bloodbowl.testlib.mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.bloodbowl.action.Action;
 import fr.bloodbowl.action.FailedPreconditionException;
+import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.TurnHistory;
 
 public class MockAction implements Action {
     private final boolean shouldFail;
     private boolean executed = false;
+    private List<DieRoll> rolls = new ArrayList<>();
 
     private MockAction(boolean shouldFail) {
         this.shouldFail = shouldFail;
+    }
+
+    public void addDieRoll(DieRoll roll) {
+        rolls.add(roll);
     }
 
     public static MockAction successfulAction() {
@@ -33,7 +43,12 @@ public class MockAction implements Action {
     }
 
     @Override
-    public void execute(Board board) {
+    public List<DieRoll> prepareDices() {
+        return new ArrayList<>(rolls);
+    }
+
+    @Override
+    public void execute(Board board, TurnHistory history, DieRollResult roll) {
         this.executed = true;
     }
 
