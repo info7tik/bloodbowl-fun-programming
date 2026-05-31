@@ -30,6 +30,7 @@ public class ActionExecutor {
         try {
             logger.info("executing " + action);
             action.checkPrecondition(board);
+            action.checkState(history);
             List<DieRoll> rolls = action.prepareDices();
             DieRollResult result = roller.execute(rolls);
             action.execute(board, history, result);

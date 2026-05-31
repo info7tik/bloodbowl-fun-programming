@@ -20,8 +20,15 @@ public class ActionExecutorTest {
     }
 
     @Test
-    void executeFailedAction() {
-        MockAction action = MockAction.failedAction();
+    void executeMustFailWhileTestingPreconditions() {
+        MockAction action = MockAction.actionWithPreconditionFailure();
+        executor.execute(action);
+        assertFalse(action.isExecuted());
+    }
+
+    @Test
+    void executeMustFailWhileCheckingState() {
+        MockAction action = MockAction.actionWithStateCheckFailure();
         executor.execute(action);
         assertFalse(action.isExecuted());
     }

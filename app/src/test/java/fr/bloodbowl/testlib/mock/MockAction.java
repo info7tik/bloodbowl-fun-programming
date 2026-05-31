@@ -11,12 +11,14 @@ import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.TurnHistory;
 
 public class MockAction implements Action {
-    private final boolean shouldFail;
+    private final boolean preconditionFailure;
+    private final boolean checkStateFailure;
     private boolean executed = false;
     private List<DieRoll> rolls = new ArrayList<>();
 
-    private MockAction(boolean shouldFail) {
-        this.shouldFail = shouldFail;
+    private MockAction(boolean withPreconditionFailure, boolean withCheckStateFailure) {
+        this.preconditionFailure = withPreconditionFailure;
+        this.checkStateFailure = withCheckStateFailure;
     }
 
     public void addDieRoll(DieRoll roll) {
@@ -24,22 +26,29 @@ public class MockAction implements Action {
     }
 
     public static MockAction successfulAction() {
-        return new MockAction(false);
+        return new MockAction(false, false);
     }
 
-    public static MockAction failedAction() {
-        return new MockAction(true);
+    public static MockAction actionWithPreconditionFailure() {
+        return new MockAction(true, false);
+    }
+
+    public static MockAction actionWithStateCheckFailure() {
+        return new MockAction(false, true);
     }
 
     @Override
     public void checkPrecondition(Board board) throws FailedPreconditionException {
-        if (shouldFail) {
+        if (preconditionFailure) {
             throw new FailedPreconditionException("for testing purpose");
         }
     }
 
     @Override
     public void checkState(TurnHistory history) throws FailedPreconditionException {
+        if (checkStateFailure) {
+            throw new FailedPreconditionException("for testing purpose");
+        }
     }
 
     @Override
