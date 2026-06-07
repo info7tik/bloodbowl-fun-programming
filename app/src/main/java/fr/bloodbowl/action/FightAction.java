@@ -1,6 +1,7 @@
 package fr.bloodbowl.action;
 
 import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollFactory;
 import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
@@ -35,12 +36,12 @@ public class FightAction implements Action {
 
     @Override
     public DieRoll prepareDices() {
-        throw new UnsupportedOperationException();
+        return DieRollFactory.fightRoll(1);
     }
 
     @Override
     public void checkDices(DieRollResult dices) throws FailedPreconditionException {
-        // TODO Auto-generated method stub
+        // Nothing to do, the action must be always applied
     }
 
     @Override

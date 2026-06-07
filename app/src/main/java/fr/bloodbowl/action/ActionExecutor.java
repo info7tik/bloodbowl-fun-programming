@@ -27,12 +27,16 @@ public class ActionExecutor {
 
     public void execute(Action action) {
         try {
-            logger.info("executing " + action);
+            logger.info("checking preconditions for " + action);
             action.checkPrecondition(board);
+            logger.info("checking history state for " + action);
             action.checkState(history);
+            logger.info("rolling the dices for " + action);
             DieRoll roll = action.prepareDices();
             DieRollResult result = roller.execute(roll);
+            logger.info("checking the dice results for " + action);
             action.checkDices(result);
+            logger.info("executing the action " + action);
             action.execute(board, history);
         } catch (FailedPreconditionException ex) {
             logger.error("action " + action.getClass().getSimpleName() + "fails: ", ex);
