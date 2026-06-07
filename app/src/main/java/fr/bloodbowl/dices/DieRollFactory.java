@@ -1,24 +1,19 @@
 package fr.bloodbowl.dices;
 
 public class DieRollFactory {
-    public static DieRoll sixCubesRoll(DieComparator comparator, int target) {
-        return new DieRoll(6, comparator, target);
+    public static DieRoll sixCubesRoll(int numberOfDices) {
+        return new DieRoll(6, numberOfDices, false);
     }
 
-    public static DieRoll heightCubesRoll(DieComparator comparator, int target) {
-        return new DieRoll(8, comparator, target);
+    public static DieRoll heightCubesRoll(int numberOfDices) {
+        return new DieRoll(8, numberOfDices, false);
     }
 
-    public static DieRoll fightRoll() {
-        return new DieRoll(6, DieComparator.NOT_APPLICAPLE, 0);
+    public static DieRoll fightRoll(int numberOfDices) {
+        return new DieRoll(6, numberOfDices, true);
     }
 
-    public static DieRollResult rollResult(int result, DieRoll roll) {
-        return new DieRollResult(result, roll);
-    }
-
-    public static DieRollResult successfulResult() {
-        return new DieRollResult(0, new DieRoll(0, DieComparator.NOT_APPLICAPLE, 0));
-
+    public static DieRoll noRoll() {
+        return new DieRoll(6, 0, false);
     }
 }

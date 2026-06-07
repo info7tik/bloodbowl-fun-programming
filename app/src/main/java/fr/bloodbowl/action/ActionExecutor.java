@@ -1,7 +1,5 @@
 package fr.bloodbowl.action;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +29,10 @@ public class ActionExecutor {
             logger.info("executing " + action);
             action.checkPrecondition(board);
             action.checkState(history);
-            List<DieRoll> rolls = action.prepareDices();
-            DieRollResult result = roller.execute(rolls);
-            action.execute(board, history, result);
+            DieRoll roll = action.prepareDices();
+            DieRollResult result = roller.execute(roll);
+            action.checkDices(result);
+            action.execute(board, history);
         } catch (FailedPreconditionException ex) {
             logger.error("action " + action.getClass().getSimpleName() + "fails: ", ex);
         }

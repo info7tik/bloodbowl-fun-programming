@@ -1,7 +1,5 @@
 package fr.bloodbowl.action;
 
-import java.util.List;
-
 import fr.bloodbowl.dices.DieRoll;
 import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
@@ -36,11 +34,16 @@ public class FightAction implements Action {
     }
 
     @Override
-    public List<DieRoll> prepareDices() {
-        return List.of();
+    public DieRoll prepareDices() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void execute(Board board, TurnHistory history, DieRollResult roll) {
+    public void checkDices(DieRollResult dices) throws FailedPreconditionException {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void execute(Board board, TurnHistory history) {
     }
 }

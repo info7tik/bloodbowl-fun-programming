@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bloodbowl.dices.DieRollFactory;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Position;
 import fr.bloodbowl.testlib.DataBuilder;
@@ -40,7 +39,7 @@ public class PlaceActionTest {
     void executePlaceThePlayerOnTheBoard() {
         Position position = new Position(3, 4);
         PlaceAction action = new PlaceAction(DataBuilder.player1(), position);
-        action.execute(board, DataBuilder.emptyHistory(), DieRollFactory.successfulResult());
+        action.execute(board, DataBuilder.emptyHistory());
         assertEquals(action.getPlayer(), board.get(position));
     }
 }

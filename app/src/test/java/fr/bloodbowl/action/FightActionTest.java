@@ -3,8 +3,6 @@ package fr.bloodbowl.action;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.dices.DieRoll;
@@ -48,8 +46,9 @@ public class FightActionTest {
     @Test
     void executeFightActionMustReturnOneRollDice() {
         FightAction action = new FightAction(player1, player2);
-        List<DieRoll> rolls = action.prepareDices();
-        assertEquals(1, rolls.size());
+        DieRoll rolls = action.prepareDices();
+        assertEquals(6, rolls.getCubeNumbers());
+        assertEquals(1, rolls.getDiceNumber());
     }
 
     private Board buildBoardWithPlayer1() {

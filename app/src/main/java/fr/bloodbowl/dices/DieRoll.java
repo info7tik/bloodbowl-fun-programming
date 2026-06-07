@@ -9,7 +9,7 @@ public class DieRoll {
     @Getter
     private final int cubeNumbers;
     @Getter
-    private final DieComparator comparator;
+    private final int diceNumber;
     @Getter
-    private final int target;
+    private final boolean fightDices;
 }

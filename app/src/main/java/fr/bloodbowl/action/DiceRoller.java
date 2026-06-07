@@ -1,13 +1,13 @@
 package fr.bloodbowl.action;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import fr.bloodbowl.dices.DieRoll;
-import fr.bloodbowl.dices.DieRollFactory;
 import fr.bloodbowl.dices.DieRollResult;
 
 public class DiceRoller {
-    public DieRollResult execute(List<DieRoll> rolls) {
-        return DieRollFactory.successfulResult();
+    public DieRollResult execute(DieRoll roll) {
+        return new DieRollResult(Collections.unmodifiableList(new ArrayList<>()), roll.isFightDices());
     }
 }

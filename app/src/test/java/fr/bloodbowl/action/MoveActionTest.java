@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bloodbowl.dices.DieRollFactory;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.PlayerBuilder;
@@ -116,7 +115,7 @@ public class MoveActionTest {
         Position destination = buildClosePosition();
         MoveAction action = new MoveAction(player1, destination);
         assertNotEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
-        action.execute(boardWithPlayer, activePlayerHistory, DieRollFactory.successfulResult());
+        action.execute(boardWithPlayer, activePlayerHistory);
         assertEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
         assertEquals(1, activePlayerHistory.getMovement(player1.getIdentifier()));
     }

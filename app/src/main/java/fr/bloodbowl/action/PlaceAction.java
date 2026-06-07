@@ -1,8 +1,7 @@
 package fr.bloodbowl.action;
 
-import java.util.List;
-
 import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollFactory;
 import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
@@ -33,11 +32,16 @@ public class PlaceAction implements Action {
     }
 
     @Override
-    public List<DieRoll> prepareDices() {
-        return List.of();
+    public DieRoll prepareDices() {
+        return DieRollFactory.noRoll();
     }
 
-    public void execute(Board board, TurnHistory history, DieRollResult roll) {
+    @Override
+    public void checkDices(DieRollResult dices) throws FailedPreconditionException {
+        // Nothing to check
+    }
+
+    public void execute(Board board, TurnHistory history) {
         board.placeAt(position, player);
     }
 

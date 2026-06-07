@@ -1,20 +1,18 @@
 package fr.bloodbowl.dices;
 
+import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 public class DieRollResult {
     @Getter
-    private final int result;
-    private final DieComparator comparator;
-    private final int target;
+    private final List<Integer> results;
+    @Getter
+    private final boolean fightDices;
 
-    DieRollResult(int result, DieRoll roll) {
-        this.result = result;
-        comparator = roll.getComparator();
-        target = roll.getTarget();
-    }
-
-    public boolean isSuccessful() {
-        return true;
+    public int sum() {
+        return results.stream().mapToInt(i -> i.intValue()).sum();
     }
 }

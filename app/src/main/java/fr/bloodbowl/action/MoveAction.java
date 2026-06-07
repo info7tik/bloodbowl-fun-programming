@@ -1,8 +1,7 @@
 package fr.bloodbowl.action;
 
-import java.util.List;
-
 import fr.bloodbowl.dices.DieRoll;
+import fr.bloodbowl.dices.DieRollFactory;
 import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
@@ -51,12 +50,17 @@ public class MoveAction implements Action {
     }
 
     @Override
-    public List<DieRoll> prepareDices() {
-        return List.of();
+    public DieRoll prepareDices() {
+        return DieRollFactory.noRoll();
     }
 
     @Override
-    public void execute(Board board, TurnHistory history, DieRollResult roll) {
+    public void checkDices(DieRollResult dices) throws FailedPreconditionException {
+        // Nothing to check
+    }
+
+    @Override
+    public void execute(Board board, TurnHistory history) {
         board.remove(player.getIdentifier());
         board.placeAt(destination, player);
         history.registerMovement(player.getIdentifier());
