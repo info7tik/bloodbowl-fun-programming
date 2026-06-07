@@ -60,7 +60,7 @@ public class MoveAction implements Action {
     }
 
     @Override
-    public void execute(Board board, TurnHistory history) {
+    public void apply(Board board, TurnHistory history) {
         board.remove(player.getIdentifier());
         board.placeAt(destination, player);
         history.registerMovement(player.getIdentifier());

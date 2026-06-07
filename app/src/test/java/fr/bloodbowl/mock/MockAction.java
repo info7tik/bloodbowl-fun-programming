@@ -63,7 +63,7 @@ public class MockAction implements Action {
     }
 
     @Override
-    public void execute(Board board, TurnHistory history) {
+    public void apply(Board board, TurnHistory history) {
         this.executed = true;
     }
 

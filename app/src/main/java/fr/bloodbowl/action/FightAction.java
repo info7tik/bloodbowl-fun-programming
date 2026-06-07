@@ -45,6 +45,6 @@ public class FightAction implements Action {
     }
 
     @Override
-    public void execute(Board board, TurnHistory history) {
+    public void apply(Board board, TurnHistory history) {
     }
 }

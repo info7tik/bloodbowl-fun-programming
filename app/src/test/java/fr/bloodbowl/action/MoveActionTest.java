@@ -116,7 +116,7 @@ public class MoveActionTest {
         Position destination = buildClosePosition();
         MoveAction action = new MoveAction(player1, destination);
         assertNotEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
-        action.execute(boardWithPlayer, activePlayerHistory);
+        action.apply(boardWithPlayer, activePlayerHistory);
         assertEquals(destination, boardWithPlayer.get(player1.getIdentifier()));
         assertEquals(1, activePlayerHistory.getMovement(player1.getIdentifier()));
     }

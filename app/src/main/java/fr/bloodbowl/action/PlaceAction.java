@@ -41,7 +41,7 @@ public class PlaceAction implements Action {
         // Nothing to check
     }
 
-    public void execute(Board board, TurnHistory history) {
+    public void apply(Board board, TurnHistory history) {
         board.placeAt(position, player);
     }
 
