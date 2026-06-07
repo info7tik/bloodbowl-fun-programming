@@ -36,12 +36,7 @@ public class PlaceAction implements Action {
         return DieRollFactory.noRoll();
     }
 
-    @Override
-    public void checkDices(DieRollResult dices) throws FailedPreconditionException {
-        // Nothing to check
-    }
-
-    public void apply(Board board, TurnHistory history) {
+    public void apply(DieRollResult dieResult, Board board, TurnHistory history) {
         board.placeAt(position, player);
     }
 

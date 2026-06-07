@@ -40,11 +40,6 @@ public class FightAction implements Action {
     }
 
     @Override
-    public void checkDices(DieRollResult dices) throws FailedPreconditionException {
-        // Nothing to do, the action must be always applied
-    }
-
-    @Override
-    public void apply(Board board, TurnHistory history) {
+    public void apply(DieRollResult dieResult, Board board, TurnHistory history) {
     }
 }

@@ -35,10 +35,8 @@ public class ActionExecutor {
             DieRoll roll = action.prepareDices();
             logger.info("roll the dices " + roll + " for " + action);
             DieRollResult result = roller.execute(roll);
-            logger.info("register the dice result " + result + " for " + action);
-            action.checkDices(result);
             logger.info("apply the action " + action);
-            action.apply(board, history);
+            action.apply(result, board, history);
         } catch (FailedPreconditionException ex) {
             logger.error("action " + action.getClass().getSimpleName() + "fails: ", ex);
         }

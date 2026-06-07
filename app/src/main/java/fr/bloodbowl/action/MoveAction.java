@@ -55,12 +55,7 @@ public class MoveAction implements Action {
     }
 
     @Override
-    public void checkDices(DieRollResult dices) throws FailedPreconditionException {
-        // Nothing to check
-    }
-
-    @Override
-    public void apply(Board board, TurnHistory history) {
+    public void apply(DieRollResult dieResult, Board board, TurnHistory history) {
         board.remove(player.getIdentifier());
         board.placeAt(destination, player);
         history.registerMovement(player.getIdentifier());

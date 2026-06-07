@@ -11,29 +11,27 @@ import fr.bloodbowl.models.TurnHistory;
 public class MockAction implements Action {
     private final boolean preconditionFailure;
     private final boolean checkStateFailure;
-    private final boolean checkDicesFailure;
     private boolean executed = false;
 
-    private MockAction(boolean withPreconditionFailure, boolean withCheckStateFailure, boolean withCheckDicesFailure) {
+    private MockAction(boolean withPreconditionFailure, boolean withCheckStateFailure) {
         this.preconditionFailure = withPreconditionFailure;
         this.checkStateFailure = withCheckStateFailure;
-        this.checkDicesFailure = withCheckDicesFailure;
     }
 
     public static MockAction successfulAction() {
-        return new MockAction(false, false, false);
+        return new MockAction(false, false);
     }
 
     public static MockAction actionWithPreconditionFailure() {
-        return new MockAction(true, false, false);
+        return new MockAction(true, false);
     }
 
     public static MockAction actionWithStateCheckFailure() {
-        return new MockAction(false, true, false);
+        return new MockAction(false, true);
     }
 
     public static MockAction actionWithDiceCheckFailure() {
-        return new MockAction(false, false, true);
+        return new MockAction(false, false);
     }
 
     @Override
@@ -51,19 +49,12 @@ public class MockAction implements Action {
     }
 
     @Override
-    public void checkDices(DieRollResult dices) throws FailedPreconditionException {
-        if (checkDicesFailure) {
-            throw new FailedPreconditionException("for testing purpose");
-        }
-    }
-
-    @Override
     public DieRoll prepareDices() {
         return DieRollFactory.noRoll();
     }
 
     @Override
-    public void apply(Board board, TurnHistory history) {
+    public void apply(DieRollResult dieResult, Board board, TurnHistory history) {
         this.executed = true;
     }
 

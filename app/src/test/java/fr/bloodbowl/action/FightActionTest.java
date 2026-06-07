@@ -4,13 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import fr.bloodbowl.dices.DieRoll;
 import fr.bloodbowl.dices.DieRollFactory;
-import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.mock.DataBuilder;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
@@ -61,14 +58,6 @@ public class FightActionTest {
     void prepareDicesMustReturnOneFightDice() {
         FightAction action = new FightAction(player1, player2);
         assertEquals(DieRollFactory.fightRoll(1), action.prepareDices());
-    }
-
-    @Test
-    void checkDicesAlwaysSucceedForFightDices() throws FailedPreconditionException {
-        FightAction action = new FightAction(player1, player2);
-        action.checkDices(new DieRollResult(List.of(1), true));
-        action.checkDices(new DieRollResult(List.of(3), true));
-        action.checkDices(new DieRollResult(List.of(6), true));
     }
 
     private Board buildBoardWithPlayer1() {

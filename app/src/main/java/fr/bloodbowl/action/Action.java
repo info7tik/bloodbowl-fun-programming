@@ -12,7 +12,5 @@ public interface Action {
 
     DieRoll prepareDices();
 
-    void checkDices(DieRollResult dices) throws FailedPreconditionException;
-
-    void apply(Board board, TurnHistory history);
+    void apply(DieRollResult dieResult, Board board, TurnHistory history);
 }

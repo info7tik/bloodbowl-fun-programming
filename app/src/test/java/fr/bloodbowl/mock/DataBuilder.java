@@ -1,8 +1,10 @@
 package fr.bloodbowl.mock;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import fr.bloodbowl.dices.DieRollResult;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.PlayerBuilder;
@@ -39,5 +41,9 @@ public class DataBuilder {
         TurnHistory history = emptyHistory();
         history.addActivePlayer(player1().getIdentifier());
         return history;
+    }
+
+    public static DieRollResult emptyResult() {
+        return new DieRollResult(List.of(), false);
     }
 }

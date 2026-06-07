@@ -40,7 +40,7 @@ public class PlaceActionTest {
     void executePlaceThePlayerOnTheBoard() {
         Position position = new Position(3, 4);
         PlaceAction action = new PlaceAction(DataBuilder.player1(), position);
-        action.apply(board, DataBuilder.emptyHistory());
+        action.apply(DataBuilder.emptyResult(), board, DataBuilder.emptyHistory());
         assertEquals(action.getPlayer(), board.get(position));
     }
 
