@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import fr.bloodbowl.mock.DataBuilder;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Position;
-import fr.bloodbowl.testlib.DataBuilder;
 
 public class PlaceActionTest {
     private Board board = DataBuilder.emptyBoard();

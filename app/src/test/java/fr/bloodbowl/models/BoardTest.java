@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bloodbowl.testlib.DataBuilder;
+import fr.bloodbowl.mock.DataBuilder;
 
 public class BoardTest {
     private Board board = DataBuilder.emptyBoard();

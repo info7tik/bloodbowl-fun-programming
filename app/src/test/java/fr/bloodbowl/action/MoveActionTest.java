@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import fr.bloodbowl.mock.DataBuilder;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.Player;
 import fr.bloodbowl.models.PlayerBuilder;
 import fr.bloodbowl.models.Position;
 import fr.bloodbowl.models.TurnHistory;
-import fr.bloodbowl.testlib.DataBuilder;
 
 public class MoveActionTest {
     private final Player player1 = DataBuilder.player1();

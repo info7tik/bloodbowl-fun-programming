@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import fr.bloodbowl.testlib.mock.MockAction;
+import fr.bloodbowl.mock.MockAction;
 
 public class ActionExecutorTest {
     private ActionExecutor executor = new ActionExecutor();

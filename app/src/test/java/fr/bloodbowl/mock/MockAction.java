@@ -1,4 +1,4 @@
-package fr.bloodbowl.testlib.mock;
+package fr.bloodbowl.mock;
 
 import fr.bloodbowl.action.Action;
 import fr.bloodbowl.action.FailedPreconditionException;

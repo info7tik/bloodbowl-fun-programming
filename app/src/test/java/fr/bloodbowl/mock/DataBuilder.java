@@ -1,4 +1,4 @@
-package fr.bloodbowl.testlib;
+package fr.bloodbowl.mock;
 
 import java.util.HashMap;
 import java.util.Map;
