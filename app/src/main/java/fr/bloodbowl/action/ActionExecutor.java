@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import fr.bloodbowl.dices.DieRoll;
 import fr.bloodbowl.dices.DieRollResult;
+import fr.bloodbowl.dices.RandomIntegerGenerator;
 import fr.bloodbowl.models.Board;
 import fr.bloodbowl.models.TurnHistory;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class ActionExecutor {
     private final TurnHistory history = new TurnHistory();
 
     public ActionExecutor() {
-        this.roller = new DiceRoller();
+        this.roller = new DiceRoller(new RandomIntegerGenerator());
     }
 
     public ActionExecutor(DiceRoller roller) {
