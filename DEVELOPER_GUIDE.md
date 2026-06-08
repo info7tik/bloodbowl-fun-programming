@@ -42,53 +42,6 @@ At the current stage, the project provides the foundations of a game engine and 
 
 ---
 
-### Not Yet Implemented
-
-The following Blood Bowl mechanics are planned but not currently available:
-
-#### Core Gameplay
-
-* Ball management
-* Kick-off sequence
-* Team turns
-* Turnovers
-* Touchdowns
-
-#### Player Actions
-
-* Dodge
-* Rush / Going For It
-* Pass
-* Catch
-* Hand-off
-* Fouls
-
-#### Combat
-
-* Strength comparison
-* Assists
-* Multiple block dice
-* Pushes
-* Knockdowns
-* Follow-up movement
-
-#### Injuries
-
-* Armour rolls
-* Injury rolls
-* Casualties
-* Knocked-down state
-* Stunned state
-
-#### Teams
-
-* Team rosters
-* Races
-* Skills
-* Team rerolls
-
----
-
 ## Architecture
 
 The project is organized around the game domain rather than the user interface.
@@ -182,51 +135,6 @@ over:
 ```java
 player.setStunned(true);
 ```
-
----
-
-## Suggested Roadmap
-
-### Phase 1 – Complete Blocking
-
-* Strength comparison
-* Assists
-* Multiple block dice
-* Pushes
-* Knockdowns
-* Turnovers
-
-### Phase 2 – Player States
-
-* Standing
-* Prone
-* Stunned
-
-### Phase 3 – Injury System
-
-* Armour rolls
-* Injury rolls
-* Casualties
-
-### Phase 4 – Ball Handling
-
-* Pickup
-* Pass
-* Catch
-* Hand-off
-
-### Phase 5 – Full Turn Management
-
-* Team turns
-* Turnovers
-* End-of-turn processing
-
-### Phase 6 – Match Rules
-
-* Kick-off
-* Scoring
-* Game clock
-* Victory conditions
 
 ---
 
