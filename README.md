@@ -13,25 +13,32 @@ The current implementation is essentially a Blood Bowl movement-and-action proto
 
 ## Implemented Rules
 1. Board Positioning
+
 Players can be placed on a board and each square can contain at most one player.
 
 2. Adjacent-Square Movement
+
 A player may move only to an adjacent square.
 
 3. Movement Allowance (MA)
+
 Each player has a movement attribute. A player may continue moving until the number of squares moved during the turn reaches that value. Additional movement is rejected.
 
 4. Active / Inactive Players
+
 Only active players may perform actions.
 
 5. Blocking Eligibility
+
 A player may declare a fight only if the opponent occupies an adjacent square.
 
 6. Block Dice Infrastructure
+
 A fight action prepares a special "fight roll" using one combat die.
 
 ## Partially Implemented Rules
 1. Blocking Resolution
+
 A FightAction exists and can:
 * Validate adjacency
 * Validate active player status
